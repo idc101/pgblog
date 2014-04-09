@@ -1,0 +1,21 @@
+%html
+    %head
+        %title Professional Geek Coding Blog
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+        %link(rel="stylesheet" href="css/styles.css")
+    %body
+        #wrapper
+            %h1 Add new post
+            
+            %form{ :action => "", :method => "post"}
+                %label{:for => "title"} Title:
+                %input{:type => "text", :name => "title"}
+                %br
+                %label{:for => "mail"} Url:
+                %input{:type => "text", :name => "mail"}
+                %br
+                %label{:for => "text"} Text:
+                %textarea{:name => "text"}
+                %input{:type => "submit", :value => "Post"}
+
+        

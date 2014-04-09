@@ -1,0 +1,11 @@
+%html
+  %head
+    %title Professional Geek Coding Blog
+  %body
+    %h1 Professional Geek
+    %p
+      Welcome to my website made with Sinatra and HAML
+    %p
+      =post['text'] if post
+    %a{:href => "/new"} Add new post
+    

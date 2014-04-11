@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <title>Professional Geek Coding Blog</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/styles.css"/>
+  </head>
+  <body>
+    <div id="main">
+      <div id="header">
+        <h1>Professional Geek</h1>
+      </div>
+      <p>Welcome to my website made with Sinatra</p>
+      <nav>
+        <a href="/new">Add new post</a>
+      </nav>
+      <% for post in posts %>
+        <div class="post">
+          <h2><%= post['title'] %></h2>
+          <p>Posted <%= post['date'] %></p>
+          <p><%= post['text'] %></p>
+        </div>
+      <% end %>
+      <p/>
+    </div>
+  </body>
+</html>
+    

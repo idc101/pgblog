@@ -1,0 +1,42 @@
+<html>
+  <head>
+    <title>Professional Geek Coding Blog</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/styles.css"/>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    <script type="javascript">
+            $(document).ready( function() {
+              var now = new Date();
+              $('#date').val(new Date().toString());
+            } );
+    </script>
+  </head>
+  <body>
+    <div id="main">
+      <div id="header">
+        <h1>Add new post</h1>
+      </div>
+      <form action="" method="post">
+        <div>
+          <label for="title">Title:</label>
+          <input type="text" name="title"/>
+        </div>
+        <div>
+          <label for="Url">Url:</label>
+          <input type="text" name="url"/>
+        </div>
+        <div>
+          <label for="date">Date:</label>
+          <input type="text" name="date" id="date"/>
+        </div>
+        <div>
+          <label for="text">Content:</label>
+          <textarea name="text"></textarea>
+        </div>
+        <div>
+          <button type="submit">Post</button>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

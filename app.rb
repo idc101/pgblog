@@ -1,8 +1,9 @@
 require 'rubygems'
 require 'sinatra'
 require 'sinatra/reloader'
-require 'haml'
+require 'erb'
 require 'mongo'
+require 'date'
 
 include Mongo
 
@@ -11,29 +12,27 @@ db = client['pgblog-db']
 coll = db['posts']
 
 get '/' do
-  post = coll.find_one
+  posts = coll.find
   
-  haml :index, :locals => { :post => post }
-end
-
-get '/' do
-  haml :index
+  erb :index, :locals => { :posts => posts }
 end
 
 get '/new' do
-  haml :new
+  erb :new
 end
 
 post '/new' do
   title = params[:title]
   url = params[:url]
   text = params[:text]
+  date = Date.parse(params[:date]).iso8601
   post = {
       "title" => title,
       "url" => url,
+      "date" => date,
       "text" => text
   }
   
   coll.insert(post)
-  haml :index, :locals => { :post => post }
+  erb :index, :locals => { :post => post }
 end

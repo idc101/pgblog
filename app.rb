@@ -21,6 +21,11 @@ get '/new' do
   erb :new
 end
 
+get '/posts/:url' do
+  post = coll.find_one("url" => params["url"])
+  erb :index, :locals => { :posts => [ post ] }
+end
+
 post '/new' do
   title = params[:title]
   url = params[:url]
@@ -34,5 +39,6 @@ post '/new' do
   }
   
   coll.insert(post)
-  erb :index, :locals => { :post => post }
+  
+  redirect "/posts/#{url}"
 end

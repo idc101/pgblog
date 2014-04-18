@@ -4,6 +4,7 @@ require 'sinatra/reloader'
 require 'erb'
 require 'mongo'
 require 'date'
+require 'maruku'
 
 include Mongo
 
@@ -42,3 +43,11 @@ post '/new' do
   
   redirect "/posts/#{url}"
 end
+
+helpers do
+  def markdown(text)
+    Maruku.new(text).to_html()
+  end
+end
+
+

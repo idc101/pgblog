@@ -31,7 +31,7 @@ post '/new' do
   title = params[:title]
   url = params[:url]
   text = params[:text]
-  date = Date.parse(params[:date]).iso8601
+  date = Time.parse(params[:date]).utc
   post = {
       "title" => title,
       "url" => url,

@@ -19,7 +19,8 @@ end
 db = get_connection
 
 #client = MongoClient.new # defaults to localhost:27017
-db = client['pgblog-db']
+#db = client['pgblog-db']
+
 coll = db['posts']
 
 get '/' do

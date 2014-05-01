@@ -44,6 +44,10 @@ get '/posts/:url' do
   erb :index, :locals => { :posts => [ post ] }
 end
 
+post '/preview' do
+  Maruku.new(params[:text]).to_html()
+end
+
 post '/new' do
   title = params[:title]
   url = params[:url]

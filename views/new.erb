@@ -25,7 +25,23 @@
               $('#url').val(url);
             }
           } );
-        } );
+          
+          $('#text').on('input', function() {
+            //send an ajax request to our action
+            $.ajax({
+              type: "POST",
+              url: "/preview",
+              //serialize the form and use it as data for our ajax request
+              data: { text: $('#text').val() },
+              //the type of data we are expecting back from server, could be json too
+              dataType: "html",
+              success: function(data) {
+                //if our ajax request is successful, replace the content of our preview div with the response data
+                $('#preview').html(data);
+              }
+            });
+          });
+        });
     </script>
   </head>
   <body>
@@ -49,12 +65,14 @@
         </div>
         <div>
           <label for="text">Content:</label>
-          <textarea name="text"><%= post['text'] if defined?(post) %></textarea>
+          <textarea name="text" id="text"><%= post['text'] if defined?(post) %></textarea>
         </div>
         <div>
           <button type="submit">Post</button>
         </div>
       </form>
+      <br>
+      <p id="preview">Test</p>
     </div>
   </body>
 </html>

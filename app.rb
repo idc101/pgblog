@@ -9,6 +9,7 @@ require 'uri'
 
 def get_connection
   return @db_connection if @db_connection
+  #export MONGOHQ_URL=mongodb://localhost:27017/pgblog-db
   db = URI.parse(ENV['MONGOHQ_URL'])
   db_name = db.path.gsub(/^\//, '')
   @db_connection = Mongo::Connection.new(db.host, db.port).db(db_name)
@@ -33,6 +34,11 @@ get '/new' do
   erb :new
 end
 
+get '/edit/:url' do
+  post = coll.find_one("url" => params["url"])
+  erb :new, :locals => { :post => post }
+end
+
 get '/posts/:url' do
   post = coll.find_one("url" => params["url"])
   erb :index, :locals => { :posts => [ post ] }
@@ -51,7 +57,7 @@ post '/new' do
   }
   
   coll.insert(post)
-  
+
   redirect "/posts/#{url}"
 end
 

@@ -6,21 +6,24 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
     <script type="text/javascript">
         $(document).ready( function() {
-          var now = new Date();
-          $('#date').val(new Date().toString());
+          if ($('#date').val() == "") {
+            $('#date').val(new Date().toString());
+          }
           
           $('#title').on('input', function() {
-            var url = $('#title').val().toLowerCase();
-            url = url.replace("'", "");
-            var regex = /[a-z|0-9]+/gi;
-            var matches = url.match(regex);
-            url = "";
-            for (i=0; i<matches.length; i++) {
-               url = url + matches[i] + "-";
+            if ($('#url').val() == "") {
+              var url = $('#title').val().toLowerCase();
+              url = url.replace("'", "");
+              var regex = /[a-z|0-9]+/gi;
+              var matches = url.match(regex);
+              url = "";
+              for (i=0; i<matches.length; i++) {
+                 url = url + matches[i] + "-";
+              }
+              url = url.replace("--", "-");
+              url = url.replace(/-$/, "");
+              $('#url').val(url);
             }
-            url = url.replace("--", "-");
-            url = url.replace(/-$/, "");
-            $('#url').val(url);
           } );
         } );
     </script>
@@ -34,19 +37,19 @@
       <form action="" method="post">
         <div>
           <label for="title">Title:</label>
-          <input type="text" name="title" id="title"/>
+          <input type="text" name="title" id="title" value="<%= post['title'] if defined?(post) %>">
         </div>
         <div>
           <label for="Url">Url:</label>
-          <input type="text" name="url" id="url"/>
+          <input type="text" name="url" id="url" value="<%= post['url'] if defined?(post) %>">
         </div>
         <div>
           <label for="date">Date:</label>
-          <input type="text" name="date" id="date"/>
+          <input type="text" name="date" id="date" value="<%= post['date'] if defined?(post) %>">
         </div>
         <div>
           <label for="text">Content:</label>
-          <textarea name="text"></textarea>
+          <textarea name="text"><%= post['text'] if defined?(post) %></textarea>
         </div>
         <div>
           <button type="submit">Post</button>

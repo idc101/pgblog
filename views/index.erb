@@ -16,7 +16,7 @@
       <% for post in posts %>
         <div class="post">
           <h2><%= post['title'] %></h2>
-          <p>Posted <%= post['date'] %></p>
+          <p>Posted <%= post['date'] %> <a href="/edit/<%= post['url'] %>">Edit</a></p>
           <p><%= markdown(post['text']) %></p>
         </div>
       <% end %>

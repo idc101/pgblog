@@ -25,21 +25,24 @@ db = get_connection
 coll = db['posts']
 
 get '/' do
-  posts = coll.find
-  
+  posts = coll.find().sort( { :date => -1 } ).limit(4)
+  @title = "Professional Geek Coding Blog"
   erb :index, :locals => { :posts => posts }
 end
 
 get '/new' do
+  @title = "Professional Geek Coding Blog"
   erb :new
 end
 
 get '/edit/:url' do
+  @title = "Professional Geek Coding Blog"
   post = coll.find_one("url" => params["url"])
   erb :new, :locals => { :post => post }
 end
 
 get '/posts/:url' do
+  @title = "Professional Geek Coding Blog"
   post = coll.find_one("url" => params["url"])
   erb :index, :locals => { :posts => [ post ] }
 end

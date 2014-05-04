@@ -14,6 +14,12 @@
           <p><%= markdown(post['text']) %></p>
         </div>
       <% end %>
+      <% if defined?(start) %>
+        <p>
+          <a href="/?start=<%= [start - 4, 0].max %>">Newer</a>....
+          <a href="/?start=<%= start + 4 %>">Older</a>
+        </p>
+      <% end %>
     </div>
     <div class="col-md-4">
       <nav>

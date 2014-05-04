@@ -25,9 +25,10 @@ db = get_connection
 coll = db['posts']
 
 get '/' do
-  posts = coll.find().sort( { :date => -1 } ).limit(4)
+  start = params.has_key?("start") ? params["start"].to_i : 0
+  posts = coll.find().sort( { :date => -1 } ).skip(start).limit(4)
   @title = "Professional Geek Coding Blog"
-  erb :index, :locals => { :posts => posts }
+  erb :index, :locals => { :posts => posts, :start => start }
 end
 
 get '/new' do

@@ -23,7 +23,19 @@
     </div>
     <div class="col-md-4">
       <nav>
-        <a href="/new">Add new post</a>
+        <% if login? %>
+          <p>Welcome <%= session[:email] %>!</p>
+          <a href="/auth/logout" title="Sign-out">Sign-out</a>
+        <% else %>
+          <a id="browserid" href="#" title="Sign-in with Persona">
+            <img src="/images/sign_in_blue.png" alt="Sign-in with Persona"/>
+          </a>
+        <% end %>
+        <p>
+          <a href="/new">Add new post</a>
+        </p>
+        <p>
+        </p>
       </nav>
     </div>
   </div>

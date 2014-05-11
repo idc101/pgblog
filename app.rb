@@ -8,12 +8,11 @@ require 'maruku'
 require 'uri'
 require 'json'
 require 'rest-client'
+require './models/post'
 
 enable :sessions
 
 $stdout.sync = true
-
-puts "hello"
 
 set :session_secret, '2be0d9ad-30a6-410d-a16a-3011dbedd2e8'
 
@@ -29,35 +28,34 @@ end
 
 db = get_connection
 
-#client = MongoClient.new # defaults to localhost:27017
-#db = client['pgblog-db']
-
 coll = db['posts']
 
-
+@title = "Professional Geek Coding Blog"
+  
 get '/' do
-  puts "hello"
   start = params.has_key?("start") ? params["start"].to_i : 0
-  posts = coll.find().sort( { :date => -1 } ).skip(start).limit(4)
-  @title = "Professional Geek Coding Blog"
+  posts = get_recent_posts db, start
+
   erb :index, :locals => { :posts => posts, :start => start }
 end
 
 get '/new' do
-  @title = "Professional Geek Coding Blog"
   erb :new
 end
 
 get '/edit/:url' do
-  @title = "Professional Geek Coding Blog"
-  post = coll.find_one("url" => params["url"])
+  post = get_by_url db, params['url']
   erb :new, :locals => { :post => post }
 end
 
 get '/posts/:url' do
-  @title = "Professional Geek Coding Blog"
-  post = coll.find_one("url" => params["url"])
+  post = get_by_url db, params['url']
   erb :index, :locals => { :posts => [ post ] }
+end
+
+get '/tags/:tag' do
+  posts = get_by_tag db, params[:tag]
+  erb :index, :locals => { :posts => posts }
 end
 
 post '/preview' do
@@ -72,20 +70,12 @@ post '/new' do
   if user.nil?
     halt 500, 'User not allowed to post!'
   end
-  title = params[:title]
-  url = params[:url]
-  text = params[:text]
-  date = Time.parse(params[:date]).utc
-  post = {
-      "title" => title,
-      "url" => url,
-      "date" => date,
-      "text" => text
-  }
-  
-  coll.insert(post)
 
-  redirect "/posts/#{url}"
+  post = params_to_post(params)
+  
+  save_post( db, post )
+  
+  redirect "/posts/#{post.url}"
 end
 
 

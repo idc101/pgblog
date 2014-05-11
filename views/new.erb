@@ -20,6 +20,10 @@
           <input class="form-control" type="text" name="date" id="date" value="<%= post['date'] if defined?(post) %>">
         </div>
         <div class="form-group">
+          <label for="tags">Tags:</label>
+          <input class="form-control" type="text" name="tags" id="tags" value="<%= post['tags'] if defined?(post) %>">
+        </div>
+        <div class="form-group">
           <label for="text">Content:</label>
           <textarea class="form-control" name="text" id="text" rows="15"><%= post['text'] if defined?(post) %></textarea>
         </div>
